@@ -19,7 +19,7 @@ class PostAdmin(admin.ModelAdmin):
     readonly_fields =['noticia_img']
 
     def categoria(self,obj):
-        "\n".join([c.nombre for c in obj.categorias.all()])
+        "\n".join([c.nombre_categoria for c in obj.categorias.all()])
 
     def noticia_img(self,obj):
         return mark_safe(

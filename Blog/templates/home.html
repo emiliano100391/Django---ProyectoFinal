@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+
+<section>
+    {% for p in lista_publicaciones %}
+    <div class="card m-2" style="width: 18rem;">
+        <img src="/Blog/media/img/IA_y_medicina.jpg" class="card-img-top" alt="...">{{p.imagen}}
+        <div class="card-body">
+          <h5 class="card-title">{{p.titulo_public}}</h5>
+          <p class="card-text">{{p.contenido}}</p>
+          <a href="#" class="btn btn-primary">ver mas</a>
+        </div>
+      </div>
+      {% endfor %}
+</section>
+
+{% endblock contenido %}
