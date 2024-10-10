@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 from Blog.apps.blog_auth.forms import SignUpForm
@@ -10,4 +10,13 @@ class SignUpView(FormView):
     def form_valid(self,form):
         form.save()
         return super().form_valid(form)
-# Create your views here.
+
+    def register_view(request):
+        if request.method == 'POST':
+            form = SignUpForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('apps.blog.auth:login')
+        else:
+            form = SignUpForm()
+        return render(request, 'registration/registro.html', {'form':form})

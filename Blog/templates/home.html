@@ -5,11 +5,11 @@
 <section>
     {% for p in lista_publicaciones %}
     <div class="card m-2" style="width: 18rem;">
-        <img src="/Blog/media/img/IA_y_medicina.jpg" class="card-img-top" alt="...">{{p.imagen}}
+        <img src="{{p.imagen_public.url}}" class="card-img-top img-thumbnail" alt="...">
         <div class="card-body">
           <h5 class="card-title">{{p.titulo_public}}</h5>
           <p class="card-text">{{p.contenido}}</p>
-          <a href="#" class="btn btn-primary">ver mas</a>
+          <a href="publicacion_detalle/{{p.id}}" class="btn btn-primary">ver mas</a>
         </div>
       </div>
       {% endfor %}

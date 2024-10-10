@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contenido %}
+
+<section>
+    <h1>{{publicacion.titulo_public}}</h1>
+    <p> {{publicacion.autor_public}} </p>
+    {% if publicacion.fecha_publicacion %}
+        <div>
+            {{publicacion.fecha_publicacion}}
+        </div>
+    {% else %}
+        <a href="" class="btn btn-success mb-2">Publicar</a>
+    {% endif %}
+    
+    <img class="img-fluid" src="{{publicacion.imagen_public.url}}" style="height: 300; width: 500;" alt="">
+    <p> {{publicacion.contenido_public}} </p>
+    <hr>
+
+    <div class="container">
+        {% for c in publicacion.comentarios.all %}
+            <p>{{c.body_comentario}}</p>
+            <p> {{c.autor_comentario}} </p>
+            <p>{{c.fecha_comentario}}</p>
+        {% empty %}
+            <p>No hay comentarios.</p>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock contenido %}
