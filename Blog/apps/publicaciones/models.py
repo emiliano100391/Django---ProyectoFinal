@@ -8,9 +8,9 @@ class Publicacion(models.Model):
     titulo_public = models.CharField(max_length=200,null=False)
     resumen_public = models.TextField()
     contenido_public = models.TextField(blank=True)
-    fecha_creacion_public = models.DateTimeField(default=timezone.now())
+    fecha_creacion_public = models.DateTimeField(default=timezone.now)
     fecha_publicacon = models.DateField(blank=True,null=True)
-    imagen_public = models.ImageField(upload_to='img',height_field=None,width_field=None,
+    imagen_public = models.ImageField(upload_to='img/',height_field=None,width_field=None,
                                       help_text='selecciona una imagen para la publicación', 
                                       max_length=100,blank=True,null=True)
     categorias = models.ManyToManyField('Categoria', related_name='Publicacion')

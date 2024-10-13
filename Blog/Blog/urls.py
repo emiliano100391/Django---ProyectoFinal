@@ -18,19 +18,13 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import TemplateView
-from Blog import views
-from apps.publicaciones.views import *
-from Blog.views import *
-#from blog_auth.views import *
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from Blog.views import base
 from django.conf.urls.static import static
 from django.conf.global_settings import MEDIA_ROOT, MEDIA_URL
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', base,name='base'),
-    #path('blog_auth/'),
-    path('home',ListaPublicaciones.as_view(template_name='home.html'),name='home.html'),
-    path('publicacion_detalle/<int:id>',publicacion_detalle ,name='publicacion_detalle.html'),
-    path('nueva_publicacion/', views.NuevaPublicacion, name='nueva_publicacion'),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, show_indexes=True) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT, show_indexes=True)
+    path('', base, name='base'),
+    path('blog_auth/', include('apps.blog_auth.urls', namespace='blog_auth')),
+    path('publicaciones/', include('apps.publicaciones.urls', namespace='publicaciones')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

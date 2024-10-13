@@ -1,0 +1,22 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block contenido %}
+
+<section class="container">
+    <h1 class="text-start text-danger" style="font-variant: small-caps; font-family:'Franklin Gothic Medium';">Login</h1>
+
+    <form action="" method="POST" class="form-control g-3 mt-5 text-center">{% csrf_token %}
+        <div class="d-flex flex-row mb-3">
+            <span for="username" class="input-group-text pl-3 col-2">Usuario</span>
+            <input type="text" class="col-6" name="username" id="username"> 
+        </div>
+
+        <div class="d-flex flex-row">
+            <span for="password" class="input-group-text pl-3 col-2">Contraseña</span>
+            <input type="password" class="col-6" name="password" id="password">
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Ingresar</button>
+    </form>
+</section>
+
+{% endblock contenido %}

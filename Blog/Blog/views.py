@@ -14,7 +14,7 @@ from apps.publicaciones.forms import NuevaPublicacionForm
 def base(request):
     return render(request,'base.html')
 
-
+""" 
 class ListaPublicaciones(TemplateView):
     template_name='home'
     
@@ -23,7 +23,7 @@ class ListaPublicaciones(TemplateView):
         context["lista_publicaciones"] = Publicacion.objects.order_by('fecha_publicacon').reverse()[:5]
         return context
     
-def  publicacion_detalle(request,id):
+ def  publicacion_detalle(request,id):
     try:
         data = Publicacion.objects.get(id=id)
         comentarios = Comentario.objects.filter(aprobado=True)
@@ -36,17 +36,20 @@ def  publicacion_detalle(request,id):
             'title':'publicacion_detalle'
         }
     return render(request,template,context)
+ 
+NuevaPublicacionForm
 
-def NuevaPublicacion(request):
-    form = NuevaPublicacionForm()
+def nueva_publicacion(request):
     if request.method == 'POST':
-        form = NuevaPublicacionForm(request.POST)
+        form = NuevaPublicacionForm(request.POST, request.FILES)
         if form.is_valid():
-            publicacion = form.save()
+            publicacion = form.save(commit=False)
             publicacion.autor_public = request.user
-            publicacion.fecha_creacion_public = timezone.now()
+            publicacion.fecha_creacion_public.get()
             publicacion.save()
-            return redirect(request, 'publicacion_detalle.html', id = publicacion.id)
+            form.save_m2m()
+            return redirect('publicacion_detalle.html', id=publicacion.id)
     else:
         form = NuevaPublicacionForm()
-    return render(request, 'nueva_publicacion.html', {'form':form})
+    return render(request, 'nueva_publicacion.html', {'form': form})
+ """
