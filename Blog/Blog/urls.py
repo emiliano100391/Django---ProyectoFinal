@@ -18,13 +18,14 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import TemplateView
-from Blog.views import base
+from Blog.views import about, base
 from django.conf.urls.static import static
 from django.conf.global_settings import MEDIA_ROOT, MEDIA_URL
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', base, name='base'),
+    path('about/', about, name='about'),
     path('blog_auth/', include('apps.blog_auth.urls', namespace='blog_auth')),
     path('contacto/', include('apps.contacto.urls', namespace='contacto')),
     path('publicaciones/', include('apps.publicaciones.urls', namespace='publicaciones')),

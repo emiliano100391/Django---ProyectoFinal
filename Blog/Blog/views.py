@@ -14,42 +14,5 @@ from apps.publicaciones.forms import NuevaPublicacionForm
 def base(request):
     return render(request,'base.html')
 
-""" 
-class ListaPublicaciones(TemplateView):
-    template_name='home'
-    
-    def get_context_data(self, **kwargs: Any):
-        context = super().get_context_data(**kwargs)
-        context["lista_publicaciones"] = Publicacion.objects.order_by('fecha_publicacon').reverse()[:5]
-        return context
-    
- def  publicacion_detalle(request,id):
-    try:
-        data = Publicacion.objects.get(id=id)
-        comentarios = Comentario.objects.filter(aprobado=True)
-    except Publicacion.DoesNotExist:
-        raise Http404('La publicación seleccionada no existe')
-    template = 'publicacion_detalle.html'
-    context = {
-            'publicacion':data,
-            'comentarios':comentarios,
-            'title':'publicacion_detalle'
-        }
-    return render(request,template,context)
- 
-NuevaPublicacionForm
-
-def nueva_publicacion(request):
-    if request.method == 'POST':
-        form = NuevaPublicacionForm(request.POST, request.FILES)
-        if form.is_valid():
-            publicacion = form.save(commit=False)
-            publicacion.autor_public = request.user
-            publicacion.fecha_creacion_public.get()
-            publicacion.save()
-            form.save_m2m()
-            return redirect('publicacion_detalle.html', id=publicacion.id)
-    else:
-        form = NuevaPublicacionForm()
-    return render(request, 'nueva_publicacion.html', {'form': form})
- """
+def about(request):
+    return render(request,'about.html')
