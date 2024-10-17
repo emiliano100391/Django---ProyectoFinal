@@ -10,6 +10,16 @@
             <input type="text" class="col-6" name="titulo_public" id="titulo"> 
         </div>
 
+        <div class="d-flex flex-row mb-3">
+            <span for="categorias" class="input-group-text pl-3 col-2">Categorias</span>
+            <select name="categorias" id="" class="col-6" multiple>
+                {% for categoria in categorias.all %}
+                    <option value="{{ categoria.id }}">{{ categoria }}</option>
+                {% endfor %}
+            </select>
+           </div>
+           <a href="{% url 'publicaciones:nueva_categoria' %}" class="btn btn-secondary mt-1 mb-3" target="_blank" rel="noreferrer noopener">Nueva Categoria</a>
+
         <div class="d-flex flex-row">
             <span for="resumen" class="input-group-text pl-3 col-2">Resumen</span>
             <textarea class="col-6" name="resumen_public" id="resumen"></textarea>
@@ -22,7 +32,7 @@
     
         <div class="d-flex flex-row mt-3">
             <span for="imagen" class="input-group-text pl-3 col-3  me-5">Seleccione una imagen</span>
-            <input type="file" class="col-6" name="imagen_public" id="imagen">
+            <input type="file" class="col-6" name="imagen_public" id="imagen_public">
         </div>
         <button type="submit" class="btn btn-success mt-3">Guardar</button>
     </form>

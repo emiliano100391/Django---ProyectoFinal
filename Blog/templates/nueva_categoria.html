@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contenido %}
+
+<h2 class="mb-3 center">Nueva Categoría</h2>
+<div class="input-group mb-3">
+    <form action="{% url 'publicaciones:nueva_categoria' %}" method="POST" class="form-control g-3">{% csrf_token %}
+        <div class="d-flex flex-row mb-3">
+            <span for="nombre" class="input-group-text pl-3 col-2">Nombre</span>
+            <input type="text" class="col-6" name="nombre_categoria" id="nombre_categoria"> 
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Guardar</button>
+    </form>
+</div>
+
+{% endblock contenido %}

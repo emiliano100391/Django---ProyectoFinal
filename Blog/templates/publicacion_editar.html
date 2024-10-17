@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %}
+
+<div class="input-group mb-3">
+    <form action="{% url 'publicaciones:publicacion_editar' publicacion.id %}" method="POST" enctype="multipart/form-data" class="form-control g-3">{% csrf_token %}
+       <div class="d-flex flex-row mb-3">
+        <span for="categorias" class="input-group-text pl-3 col-2">Categorias</span>
+        <select name="categorias" id="" class="col-6" multiple>
+            {% for categoria in categorias.all %}
+                <option value="{{ categoria.id }}">{{ categoria }}</option>
+            {% endfor %}
+        </select>
+       </div>
+       <a href="{% url 'publicaciones:nueva_categoria' %}" class="btn btn-secondary mt-1 mb-3" target="_blank" rel="noreferrer noopener">Nueva Categoria</a>
+        <div class="d-flex flex-row mb-3">
+            <span for="titulo" class="input-group-text pl-3 col-2">Título</span>
+            <input type="text" class="col-6" name="titulo_public" id="titulo" value="{{form.instance.titulo_public}}">{{form.instance.titulo_public}}
+        </div>
+
+        <div class="d-flex flex-row">
+            <span for="resumen" class="input-group-text pl-3 col-2">Resumen</span>
+            <textarea class="col-6" name="resumen_public" id="resumen" value="{{form.instance.resumen_public}}">{{form.instance.resumen_public}}</textarea>
+        </div>
+
+        <div class="d-flex flex-row mt-3">
+            <span for="contenido" class="input-group-text pl-3 col-4">Contenido de la publicación</span>
+            <textarea class="col-6" name="contenido_public" id="contenido" value="{{form.instance.contenido_public}}"> {{form.instance.contenido_public}} </textarea>
+        </div>
+    
+        <div class="d-flex flex-row mt-3">
+            <span for="imagen" class="input-group-text pl-3 col-3  me-5">Seleccione una imagen</span>
+            <input type="file" class="col-6" name="imagen_public" id="imagen" value="{{form.instance.imagen_public}}">{{form.instance.imagen_public}}
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Guardar Cambios</button>
+    </form>
+</div>
+
+{% endblock %}

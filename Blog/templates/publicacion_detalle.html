@@ -2,9 +2,10 @@
 {% load static %}
 {% block contenido %}
 
-<section>
+<section class="container mb-5">
     <h1>{{publicacion.titulo_public}}</h1>
     <p> {{publicacion.autor_public}} </p>
+    <h6> <small> {{categorias|join:", "}}</small></h6>
     {% if publicacion.fecha_publicacion %}
     <div>
         {{publicacion.fecha_publicacion}}
@@ -12,11 +13,13 @@
     {% else %}
     <a href="" class="btn btn-success mb-2">Publicar</a>
     {% endif %}
-    {% if publicacion.imagen_public %}
-    <img src="{{ publicacion.imagen_public.url }}" alt="Imagen" class="card-img-top">
+    <img src="/media/{{publicacion.imagen_public}}" alt="Imagen" class="card-img-top" name="imagen_public">
+    {% if imagen_public %}
+    <img src="{{ imagen_public.url}}" alt="Imagen" class="card-img-top" name="imagen_public">
     {% else %}
     <p>No hay imagen</p>
     {% endif %}
+
     <p> {{publicacion.contenido_public}} </p>
 
     <a href="{% url 'publicaciones:publicacion_editar' publicacion.id %}" class="btn btn-primary">Editar</a> 
@@ -26,12 +29,24 @@
     <h3>Comentarios</h3>
     <div class="container">
         {% for c in publicacion.comentarios.all %}
-        <p>{{c.body_comentario}}</p>
-        <p> {{c.autor_comentario}} </p>
-        <p>{{c.fecha_comentario}}</p>
+        <div class="border border-secondary mt-2 mb-2">
+            <p><strong>{{c.autor_comentario}}</strong></p>
+            <p>{{c.body_comentario}}</p>
+            <p><small>{{c.fecha_comentario}}</small></p>
+    </div>
         {% empty %}
         <p>No hay comentarios.</p>
+    
         {% endfor %}
+    </div>
+    <div class="container">
+        <h4>Comentar:</h4>
+        <form action="{% url 'publicaciones:publicacion_detalle' publicacion.id %}" method="post">
+            {% csrf_token %}
+            <input type="text" class="form-control" name="autor_comentario" placeholder="Tu nombre">
+            <textarea class="form-control" name="body_comentario"></textarea>
+            <input type="submit" value="Comentar">
+        </form>
     </div>
 </section>
 
