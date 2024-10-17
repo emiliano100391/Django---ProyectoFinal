@@ -21,11 +21,12 @@ def nueva_publicacion(request):
     form = NuevaPublicacionForm()
     categorias = Categoria.objects.all()
     if request.method == 'POST':
-        form = NuevaPublicacionForm(request.POST)
+        form = NuevaPublicacionForm(request.POST, request.FILES)
         if form.is_valid():
             publicacion = form.save(commit=False)
             publicacion.autor_public = request.user
             publicacion.fecha_creacion_public = timezone.now()
+            publicacion.imagen_public = form.cleaned_data['imagen_public']
             publicacion.save()
             return redirect('publicaciones:publicacion_detalle', id = publicacion.id)
     else:
@@ -70,8 +71,11 @@ def publicacion_editar(request, id):
         if form.is_valid():
             publicacion = form.save(commit=False)
             publicacion.autor_public = request.user
+            publicacion.imagen_public = form.cleaned_data['imagen_public']
+            if publicacion.imagen_public.is_invalid():
+                print("La imagen no es valida")
             publicacion.save()
-            return redirect('publicaciones:publicacion_editar', id = publicacion.id)
+            return redirect('publicaciones:publicacion_detalle', id = publicacion.id)
     else:
         form = NuevaPublicacionForm(instance=publicacion)
     return render(request, 'publicacion_editar.html', {'form':form, 'publicacion':publicacion, 'categorias':categorias})

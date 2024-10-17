@@ -26,5 +26,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', base, name='base'),
     path('blog_auth/', include('apps.blog_auth.urls', namespace='blog_auth')),
+    path('contacto/', include('apps.contacto.urls', namespace='contacto')),
     path('publicaciones/', include('apps.publicaciones.urls', namespace='publicaciones')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

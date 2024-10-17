@@ -31,7 +31,9 @@
     
         <div class="d-flex flex-row mt-3">
             <span for="imagen" class="input-group-text pl-3 col-3  me-5">Seleccione una imagen</span>
-            <input type="file" class="col-6" name="imagen_public" id="imagen" value="{{form.instance.imagen_public}}">{{form.instance.imagen_public}}
+            
+            <input type="file" class="col-6" name="imagen_public" id="imagen_public" value="{{form.instance.imagen_public}}">{{form.instance.imagen_public}}
+            <img src="/media/img/{{ publicacion.imagen_public }}" alt="Imagen de la publicación">
         </div>
         <button type="submit" class="btn btn-success mt-3">Guardar Cambios</button>
     </form>

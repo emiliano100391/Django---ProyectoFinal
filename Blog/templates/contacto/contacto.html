@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %}
+
+<h2 class="mb-3 center">Contacto</h2>
+<section class="container">
+    <form action="{% url 'contacto:contacto' %}" method="post">
+        {% csrf_token %}
+        <div class="d-flex flex-row mt-3"> 
+            <label for="nombre" class="input-group-text pl-3 col-2">Nombre</label>
+            <input type="text" class="col-6" name="nombre">
+        </div>
+        <div class="d-flex flex-row mt-3">
+            <label for="apellido" class="input-group-text pl-3 col-2">Apellido</label>
+            <input type="text" class="col-6" name="apellido" id="apellido">
+        </div>
+        <div class="d-flex flex-row mt-3">
+            <label for="email" class="input-group-text pl-3 col-2">Email</label>
+            <input type="email" class="col-6" name="email" id="email">
+        </div>
+        <div class="d-flex flex-row mt-3">
+            <label for="mensaje" class="input-group-text pl-3 col-2">Mensaje</label>
+            <textarea class="col-6" name="mensaje" id="mensaje"></textarea>
+        </div>
+        <input class="btn btn-success mt-3" type="submit" value="Enviar">
+    </form>
+</section>
+
+{% endblock contenido %}

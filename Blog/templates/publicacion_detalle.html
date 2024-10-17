@@ -13,9 +13,9 @@
     {% else %}
     <a href="" class="btn btn-success mb-2">Publicar</a>
     {% endif %}
-    <img src="/media/{{publicacion.imagen_public}}" alt="Imagen" class="card-img-top" name="imagen_public">
+    
     {% if imagen_public %}
-    <img src="{{ imagen_public.url}}" alt="Imagen" class="card-img-top" name="imagen_public">
+    <img src="{{publicacion.imagen_public.url}}" width="20%" height="20%" alt="Imagen" class="card-img-top" name="imagen_public">
     {% else %}
     <p>No hay imagen</p>
     {% endif %}
