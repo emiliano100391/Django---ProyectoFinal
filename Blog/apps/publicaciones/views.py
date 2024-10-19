@@ -47,7 +47,7 @@ def  publicacion_detalle(request,id):
         form = ComentarioForm(request.POST)
         if form.is_valid():
             comentario = Comentario(
-                autor_comentario = form.cleaned_data[request.user],
+                autor_comentario = request.user,
                 body_comentario = form.cleaned_data['body_comentario'],
                 publicacion = publicacion
             )
@@ -86,6 +86,27 @@ def publicacion_eliminar(request, id):
     publicacion.delete()
 
     return redirect('publicaciones:home')
+
+def filtrar_publicaciones_porFecha(request):
+    orden = request.GET.get('asc', 'desc')
+    if orden == 'asc':
+        Fpublicaciones = Publicacion.objects.order_by('fecha_publicacion')
+    else:
+        Fpublicaciones = Publicacion.objects.order_by('-fecha_publicacion')
+    return Fpublicaciones
+
+def filtrar_publicaciones_porCategorias(request):
+    lista_categorias = Categoria.objects.all()
+    porCategoria = Publicacion.objects.contains(lista_categorias)
+    return porCategoria
+
+def filtrar_alfabeticamente(request):
+    alfabetico = request.GET.get('desc', 'asc')
+    if alfabetico == 'asc':
+        ALFpublicaciones = Publicacion.objects.order_by('titulo_publicacion')
+    else:
+        ALFpublicaciones = Publicacion.objects.order_by('-titulo_publicacion')
+    return ALFpublicaciones
 
 
 #------------------- CATEGORIAS-------------------------------#

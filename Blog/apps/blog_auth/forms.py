@@ -48,13 +48,3 @@ class SignInForm(UserCreationForm):
             raise forms.ValidationError("Las contraseñas no coinciden")
         return data
     
-class UserUpdateForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'first_name', 'last_name']
-        labels = {
-            'username': 'Nombre de usuario',
-            'email': 'Email',
-            'first_name': 'Nombre',
-            'last_name': 'Apellido'
-        }
