@@ -31,15 +31,13 @@
             <ul class="navbar-nav ms-auto justify-content-end">
               {% if user.is_authenticated %}
               
-              <p>Bienvenido {{user.username}}</p>
+              <li class="nav-item">
+                <a href="{% url 'apps.blog_auth:profile' request.user.username %}" class="nav-link">@{{user.username}}</a>
+              </li>
               <li class="nav-item">
                 <a href="{% url 'blog_auth:logout' %}" class="nav-link">LogOut</a>
               </li>
-              {% if user.is_staff %}
-              <li>
-                <a href="{% url 'admin:index' %}" class="nav-link">Admin</a>
-              </li>
-              {% endif %}
+
               {% else %}
               <li>
                 <a href="{% url 'blog_auth:registro' %}" class="nav-link">Register</a>
@@ -60,14 +58,6 @@
       <div class="container m-2">
       {% block contenido %} 
       
-      <section class="mt-2 mb-2 container flex-row">
-        <img src="/Blog/media/ia.jpg" class="img-fluid col-6" alt="" srcset="">
-        <p class="col-6">
-          Bienvenido a nuestra página de noticias sobre inteligencia artificial, un espacio dedicado a explorar el fascinante mundo de la IA y su impacto en nuestra vida diaria. Fundado por un grupo de entusiastas de la tecnología y la investigación, nuestro objetivo es ofrecer información precisa y actualizada sobre los avances más recientes en el campo de la inteligencia artificial.
-          
-        </p>
-      </section>
-
       {% endblock contenido %}</div>
       
       <footer class="bg-body-tertiary text-lg-start mt-5">

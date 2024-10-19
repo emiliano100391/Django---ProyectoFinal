@@ -1,14 +1,8 @@
 {% extends 'base.html' %}
 
 {% block contenido %}
- <h1>Ultimas publicaciones</h1>
- <div class="container">
 
-  <div class="col-3 bg-primary">
-
-  </div>
-
-<section class="col-9">
+<section>
   {% for p in lista_publicaciones %}
   <div class="card m-2" style="width: 18rem;">
     {% if publicacion.imagen_public %}
@@ -25,5 +19,5 @@
   </div>
   {% endfor %}
 </section>
-</div>
+
 {% endblock contenido %}

@@ -17,18 +17,18 @@ def lista_publicaciones(request):
     }
     return render(request, 'home.html', context)
     
-def nueva_publicacion(request):
-    form = NuevaPublicacionForm()
-    categorias = Categoria.objects.all()
-    if request.method == 'POST':
-        form = NuevaPublicacionForm(request.POST, request.FILES)
-        if form.is_valid():
-            publicacion = form.save(commit=False)
-            publicacion.autor_public = request.user
-            publicacion.fecha_creacion_public = timezone.now()
-            publicacion.imagen_public = form.cleaned_data['imagen_public']
-            publicacion.save()
-            return redirect('publicaciones:publicacion_detalle', id = publicacion.id)
+def nueva_publicacion(request): # función para crear una nueva publicación
+    form = NuevaPublicacionForm() # formulario vacío
+    categorias = Categoria.objects.all() # obtener todas las categorías
+    if request.method == 'POST': # si el formulario es enviado
+        form = NuevaPublicacionForm(request.POST, request.FILES) # si el formulario es valido
+        if form.is_valid(): # si el formulario es valido
+            publicacion = form.save(commit=False) # no se guardan los datos
+            publicacion.autor_public = request.user # el usuario que crea la publicación
+            publicacion.fecha_creacion_public = timezone.now() # la fecha de creación de la publicación
+            publicacion.imagen_public = form.cleaned_data['imagen_public'] # la imagen de la publicación
+            publicacion.save() # se guardan los datos
+            return redirect('publicaciones:publicacion_detalle', id = publicacion.id) # redirigir a la publicación
     else:
         form = NuevaPublicacionForm()
     return render(request, 'nueva_publicacion.html', {'form':form, 'categorias':categorias})
@@ -47,7 +47,7 @@ def  publicacion_detalle(request,id):
         form = ComentarioForm(request.POST)
         if form.is_valid():
             comentario = Comentario(
-                autor_comentario = request.user,
+                autor_comentario = form.cleaned_data[request.user],
                 body_comentario = form.cleaned_data['body_comentario'],
                 publicacion = publicacion
             )
@@ -72,8 +72,6 @@ def publicacion_editar(request, id):
             publicacion = form.save(commit=False)
             publicacion.autor_public = request.user
             publicacion.imagen_public = form.cleaned_data['imagen_public']
-            if publicacion.imagen_public.is_invalid():
-                print("La imagen no es valida")
             publicacion.save()
             return redirect('publicaciones:publicacion_detalle', id = publicacion.id)
     else:
@@ -86,27 +84,6 @@ def publicacion_eliminar(request, id):
     publicacion.delete()
 
     return redirect('publicaciones:home')
-
-def filtrar_publicaciones_porFecha(request):
-    orden = request.GET.get('asc', 'desc')
-    if orden == 'asc':
-        Fpublicaciones = Publicacion.objects.order_by('fecha_publicacion')
-    else:
-        Fpublicaciones = Publicacion.objects.order_by('-fecha_publicacion')
-    return Fpublicaciones
-
-def filtrar_publicaciones_porCategorias(request):
-    lista_categorias = Categoria.objects.all()
-    porCategoria = Publicacion.objects.contains(lista_categorias)
-    return porCategoria
-
-def filtrar_alfabeticamente(request):
-    alfabetico = request.GET.get('desc', 'asc')
-    if alfabetico == 'asc':
-        ALFpublicaciones = Publicacion.objects.order_by('titulo_publicacion')
-    else:
-        ALFpublicaciones = Publicacion.objects.order_by('-titulo_publicacion')
-    return ALFpublicaciones
 
 
 #------------------- CATEGORIAS-------------------------------#

@@ -12,7 +12,7 @@ class ComentarioForm(forms.ModelForm):
         model = Comentario
         exclude = ('fecha_comentario',)
         #readonly_fields = ['fecha_comentario']
-        fields = ['body_comentario']
+        fields = ['autor_comentario', 'body_comentario']
 
 #--------- FORMS CATEGORIAS ------------#
 
